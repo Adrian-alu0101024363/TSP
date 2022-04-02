@@ -5,5 +5,5 @@
 
 class Greedy : public Traverse {
  public:
-  int traverse(Tsp tsp, string initial, string goal);
+  Solution traverse(Tsp tsp, string initial, string goal);
 };

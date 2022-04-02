@@ -1,4 +1,4 @@
-#include "TSP.h"
+#include "../headers/TSP.h"
 
 using namespace std;
 

@@ -1,9 +1,11 @@
-#include "Greedy.h"
+#include "../headers/Greedy.h"
 
 using namespace std;
 
-int Greedy::traverse(Tsp tsp, string initial, string goal) {
-  cout << "Greedy" << endl;
+Solution Greedy::traverse(Tsp tsp, string initial, string goal) {
+  //cout << "Greedy" << endl;
+  Timer t;
+  t.start();
   string to, dest;
   int min_path = INT_MAX;
   int cost = 0;
@@ -13,6 +15,7 @@ int Greedy::traverse(Tsp tsp, string initial, string goal) {
   Node actual(tsp.getNodes()[origin]);
   nodes[origin].setVisited(true);
   result.push_back(actual);
+  auto start = std::chrono::high_resolution_clock::now();
   while(actual.getName() != goal) {
     min_path = INT_MAX;
     vector<Transition> trans = actual.getTrans();
@@ -32,7 +35,15 @@ int Greedy::traverse(Tsp tsp, string initial, string goal) {
     result.push_back(actual);
     nodes[index].setVisited(true);
   }
-  for (int j = 0; j < result.size(); j++) cout << result[j].getName();
-  cout << endl;
-  return cost;
+  vector<Transition> trans = actual.getTrans();
+  for (int i = 0; i < trans.size(); i++) {
+    if (trans[i].getTo() == initial) {
+      cost += trans[i].getCost();
+      break;
+    }
+  }
+  t.finish();
+  Solution solution(result, cost);
+  solution.setTimeCost(t.getCpuTime());
+  return solution;
 }

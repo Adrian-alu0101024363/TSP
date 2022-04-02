@@ -24,7 +24,7 @@ class Tsp {
   vector<Node> getNodes() {return nodes_;}
   Node getNode(int index) {return nodes_[index];}
   void read(string file);
-  int traverse(Tsp tsp, string initial, string goal) {return method_->traverse(*this,initial,goal);}
+  Solution traverse(Tsp tsp, string initial, string goal) {return method_->traverse(*this,initial,goal);}
   friend ostream& operator<<(ostream& os, Tsp tsp);
 };
 #endif

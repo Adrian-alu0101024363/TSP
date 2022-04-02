@@ -2,6 +2,8 @@
 #include <string>
 #include <vector>
 #include "Transition.h"
+#ifndef NODE
+#define NODE
 
 using namespace std;
 
@@ -23,3 +25,4 @@ class Node {
   void pushTans(Transition tran) {trans_.push_back(tran);}
   friend ostream& operator<<(ostream& os, Node node) { for(Transition t : node.getTrans()) os << t;return os;}
 };
+#endif
