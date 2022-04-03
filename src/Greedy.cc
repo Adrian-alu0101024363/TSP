@@ -2,7 +2,7 @@
 
 using namespace std;
 
-Solution Greedy::traverse(Tsp tsp, string initial, string goal) {
+Solution Greedy::traverse(Tsp tsp, string initial, string goal, int mask) {
   //cout << "Greedy" << endl;
   Timer t;
   t.start();
@@ -13,10 +13,10 @@ Solution Greedy::traverse(Tsp tsp, string initial, string goal) {
   auto nodes = tsp.getNodes();
   int origin = find(nodes.begin(), nodes.end(), Node(initial)) - nodes.begin();
   Node actual(tsp.getNodes()[origin]);
+  tsp.setVisited(origin);
   nodes[origin].setVisited(true);
   result.push_back(actual);
-  auto start = std::chrono::high_resolution_clock::now();
-  while(actual.getName() != goal) {
+  do {
     min_path = INT_MAX;
     vector<Transition> trans = actual.getTrans();
     actual.setVisited(true);
@@ -34,7 +34,8 @@ Solution Greedy::traverse(Tsp tsp, string initial, string goal) {
     actual = tsp.getNode(index);
     result.push_back(actual);
     nodes[index].setVisited(true);
-  }
+    tsp.setVisited(index);
+  } while(!tsp.allVisited());
   vector<Transition> trans = actual.getTrans();
   for (int i = 0; i < trans.size(); i++) {
     if (trans[i].getTo() == initial) {
@@ -47,3 +48,13 @@ Solution Greedy::traverse(Tsp tsp, string initial, string goal) {
   solution.setTimeCost(t.getCpuTime());
   return solution;
 }
+
+/*
+Solution Greedy::traverse(Tsp tsp, string initial, string goal) {
+  int sum = 0;
+  int counter = 0;
+  int j= 0, i = 0;
+  int min = INT_MAX;
+  map<Node,int> visitedRoute;
+
+}*/

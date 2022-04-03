@@ -45,6 +45,19 @@ void Tsp::read(string file) {
   f.close();
 }
 
+bool Tsp::allVisited() {
+  for (int i = 0; i < nodes_.size(); i++) {
+    if (!nodes_[i].getVisited()) return false;
+  }
+  return true;
+}
+
+void Tsp::setAll(bool state) {
+  for (int i = 0; i < nodes_.size(); i++) {
+    nodes_[i].setVisited(state);
+  }
+}
+
 ostream& operator<<(ostream& os, Tsp tsp) {
   os << "Total nodes: " << tsp.getTotal() << endl;
   auto nodes = tsp.getNodes();

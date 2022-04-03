@@ -11,6 +11,6 @@ class Tsp;
 
 class Traverse {
  public:
-  virtual Solution traverse(Tsp tsp, string initial, string goal) = 0;
+  virtual Solution traverse(Tsp tsp, string initial, string goal, int mask) = 0;
 };
 #endif

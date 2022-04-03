@@ -2,6 +2,7 @@
 #include <filesystem>
 #include "headers/TSP.h"
 #include "headers/Greedy.h"
+#include "headers/Dynamic.h"
 using namespace std;
 namespace fs = std::filesystem;
 
@@ -21,6 +22,42 @@ void createFiles() {
   kuso << "2" << endl << "A B 25";
   kuso.close();
 }
+void solveDynamic(string file) {
+  cout << "Dynamic" << endl;
+  Solution sol;
+  Tsp tsp(file, new Dynamic());
+  //cout << tsp;
+  sol = tsp.traverse(tsp,"A","A",1);
+  sol = tsp.traverse(tsp,"A","A",1);
+  vector<Node> solf = sol.getSolution();
+  vector<Node> nodes = tsp.getNodes();
+  int ini = find(nodes.begin(), nodes.end(), Node("A")) - nodes.begin();
+  Node iniNode(tsp.getNodes()[ini]);
+  solf.insert(solf.begin(),iniNode);
+  solf.push_back(iniNode);
+  cout << "Cost: " << sol.getCost() << " Time: " << sol.getTimeCost()<< endl;
+  for (int i = 0; i < solf.size(); i++) {
+    cout << solf[i].getName() << ",";
+  }
+  cout << endl;
+}
+void solveGreedy(string file) {
+  cout << "Greedy" << endl;
+  Solution sol;
+  Tsp tsp(file, new Greedy());
+  sol = tsp.traverse(tsp,"A","A",1);
+  sol = tsp.traverse(tsp,"A","A",1);
+  vector<Node> solf = sol.getSolution();
+  vector<Node> nodes = tsp.getNodes();
+  int ini = find(nodes.begin(), nodes.end(), Node("A")) - nodes.begin();
+  Node iniNode(tsp.getNodes()[ini]);
+  solf.push_back(iniNode);
+  cout << "Cost: " << sol.getCost() << " Time: " << sol.getTimeCost()<< endl;
+  for (int i = 0; i < solf.size(); i++) {
+    cout << solf[i].getName() << ",";
+  }
+  cout << endl;
+}
 
 int main() {
   string file = "test.txt";
@@ -28,15 +65,9 @@ int main() {
   createFiles();
   for (int i = 0; i < files.size(); i++) {
     file = files[i];
-    Solution sol;
-    Tsp tsp(file, new Greedy());
-    cout << tsp;
-    sol = tsp.traverse(tsp,"A","B");
-    cout << "Cost: " << sol.getCost() << " Time: " << sol.getTimeCost()<< endl;
-    vector<Node> nodes = sol.getSolution();
-    for (int i = 0; i < nodes.size(); i++) {
-      cout << nodes[i].getName() << ",";
-    }
+    cout << "Example " << i + 1 << endl;
+    solveDynamic(file);
+    solveGreedy(file);
   }
   /*
   cout << tsp.traverse(tsp,"B","A") << endl;

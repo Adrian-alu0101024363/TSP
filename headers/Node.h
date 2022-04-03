@@ -21,6 +21,14 @@ class Node {
   bool getVisited() {return visited_;}
   void setVisited(bool visited) {visited_ = visited;}
   vector<Transition> getTrans() {return trans_;}
+  int getCostTo(string destination) {
+    for (int i = 0; i < trans_.size(); i++) {
+      if (trans_[i].getTo() == destination) {
+        return trans_[i].getCost();
+      }
+    }
+    return -1;
+  }
   void setName(string name) {name_ = name;}
   void pushTans(Transition tran) {trans_.push_back(tran);}
   friend ostream& operator<<(ostream& os, Node node) { for(Transition t : node.getTrans()) os << t;return os;}
