@@ -3,6 +3,8 @@
 #include "headers/TSP.h"
 #include "headers/Greedy.h"
 #include "headers/Dynamic.h"
+#include "headers/Strong.h"
+
 using namespace std;
 namespace fs = std::filesystem;
 
@@ -28,7 +30,6 @@ void solveDynamic(string file) {
   Tsp tsp(file, new Dynamic());
   //cout << tsp;
   sol = tsp.traverse(tsp,"A","A",1);
-  sol = tsp.traverse(tsp,"A","A",1);
   vector<Node> solf = sol.getSolution();
   vector<Node> nodes = tsp.getNodes();
   int ini = find(nodes.begin(), nodes.end(), Node("A")) - nodes.begin();
@@ -46,7 +47,6 @@ void solveGreedy(string file) {
   Solution sol;
   Tsp tsp(file, new Greedy());
   sol = tsp.traverse(tsp,"A","A",1);
-  sol = tsp.traverse(tsp,"A","A",1);
   vector<Node> solf = sol.getSolution();
   vector<Node> nodes = tsp.getNodes();
   int ini = find(nodes.begin(), nodes.end(), Node("A")) - nodes.begin();
@@ -58,7 +58,24 @@ void solveGreedy(string file) {
   }
   cout << endl;
 }
-
+void solveBrute(string file) {
+  cout << "Brute" << endl;
+  Solution sol;
+  Tsp tsp(file, new Strong());
+  //cout << tsp;
+  sol = tsp.traverse(tsp,"A","A",1);
+  vector<Node> solf = sol.getSolution();
+  vector<Node> nodes = tsp.getNodes();
+  int ini = find(nodes.begin(), nodes.end(), Node("A")) - nodes.begin();
+  Node iniNode(tsp.getNodes()[ini]);
+  solf.insert(solf.begin(),iniNode);
+  solf.push_back(iniNode);
+  cout << "Cost: " << sol.getCost() << " Time: " << sol.getTimeCost()<< endl;
+  for (int i = 0; i < solf.size(); i++) {
+    cout << solf[i].getName() << ",";
+  }
+  cout << endl;
+}
 int main() {
   string file = "test.txt";
   vector<string> files = getFiles();
@@ -68,8 +85,6 @@ int main() {
     cout << "Example " << i + 1 << endl;
     solveDynamic(file);
     solveGreedy(file);
+    solveBrute(file);
   }
-  /*
-  cout << tsp.traverse(tsp,"B","A") << endl;
-  cout << tsp.traverse(tsp,"A","D");*/
 }
