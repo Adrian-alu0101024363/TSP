@@ -2,9 +2,10 @@
 
 using namespace std;
 
-Tsp::Tsp(string file, Traverse* method) {
+Tsp::Tsp(string file, Traverse* method, double limit) {
   read(file);
   method_ = method;
+  limit_ = limit;
 }
 
 void Tsp::read(string file) {

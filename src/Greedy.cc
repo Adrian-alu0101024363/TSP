@@ -3,9 +3,6 @@
 using namespace std;
 
 Solution Greedy::traverse(Tsp tsp, string initial, string goal, int mask) {
-  //cout << "Greedy" << endl;
-  Timer t;
-  t.start();
   string to, dest;
   int min_path = INT_MAX;
   int cost = 0;
@@ -16,6 +13,8 @@ Solution Greedy::traverse(Tsp tsp, string initial, string goal, int mask) {
   tsp.setVisited(origin);
   nodes[origin].setVisited(true);
   result.push_back(actual);
+  auto t_start = std::chrono::high_resolution_clock::now();
+  double elapsed_time_ms = 0.0;
   do {
     min_path = INT_MAX;
     vector<Transition> trans = actual.getTrans();
@@ -43,9 +42,10 @@ Solution Greedy::traverse(Tsp tsp, string initial, string goal, int mask) {
       break;
     }
   }
-  t.finish();
+  auto t_end = std::chrono::high_resolution_clock::now();
+  elapsed_time_ms = std::chrono::duration<double, std::milli>(t_end-t_start).count();
   Solution solution(result, cost);
-  solution.setTimeCost(t.getCpuTime());
+  solution.setTimeCost(elapsed_time_ms);
   return solution;
 }
 

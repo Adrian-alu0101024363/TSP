@@ -3,7 +3,6 @@
 #ifndef TRAVERSE
 #define TRAVERSE
 #include "Solution.h"
-#include "Timer.h"
 
 using namespace std;
 

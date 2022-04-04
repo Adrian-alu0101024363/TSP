@@ -17,8 +17,9 @@ class Tsp {
   vector<Node> nodes_;
   Traverse* method_;
   int nodeNumber_;
+  double limit_;
  public:
-  Tsp(string file, Traverse* method);
+  Tsp(string file, Traverse* method, double limit = 300000.0);
   ~Tsp(){}
   int getTotal() {return nodeNumber_;}
   vector<Node> getNodes() {return nodes_;}
@@ -27,6 +28,7 @@ class Tsp {
   void read(string file);
   bool allVisited();
   void setAll(bool state);
+  int getLimit() {return limit_;}
   Solution traverse(Tsp tsp, string initial, string goal, int mask) {return method_->traverse(*this,initial,goal, mask);}
   friend ostream& operator<<(ostream& os, Tsp tsp);
 };
