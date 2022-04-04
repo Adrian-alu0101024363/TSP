@@ -8,6 +8,12 @@
 using namespace std;
 namespace fs = std::filesystem;
 
+/**
+ * @brief Get the Files object from 
+ * the given path 
+ * @param path path to files
+ * @return vector<string> files path
+ */
 vector<string> getFiles(string path = "./files/") {
   vector<string> files;
   for (const auto & entry : fs::directory_iterator(path)) {
@@ -17,6 +23,14 @@ vector<string> getFiles(string path = "./files/") {
   }
   return files;
 }
+
+/**
+ * @brief Create a Files object with a tsp valid format
+ * 
+ * @param n number of instance
+ * @param path path to store files
+ * @param nodes number of nodes for graph
+ */
 void createFiles(int n, string path = "./files/", int nodes = 8) {
   for (int i = 0; i < n; i++) {
   ofstream f;
@@ -36,6 +50,12 @@ void createFiles(int n, string path = "./files/", int nodes = 8) {
   }
 }
 
+/**
+ * @brief for every file solve its tsp
+ * using dynamic programming
+ * @param file graph to be resolved
+ * @param limit time limit 
+ */
 void solveDynamic(string file, double limit = 300000.0) {
   cout << "Dynamic" << endl;
   Solution sol;
@@ -60,6 +80,13 @@ void solveDynamic(string file, double limit = 300000.0) {
   }
   cout << endl;
 }
+
+/**
+ * @brief for every file solve its tsp
+ * using greedy programming
+ * @param file graph to be resolved
+ * @param limit time limit
+ */
 void solveGreedy(string file, double limit = 300000.0) {
   cout << "Greedy" << endl;
   Solution sol;
@@ -77,6 +104,13 @@ void solveGreedy(string file, double limit = 300000.0) {
   }
   cout << endl;
 }
+
+/**
+ * @brief for every file solve its tsp
+ * using brute force programming
+ * @param file graph to be resolved
+ * @param limit time limit
+ */
 void solveBrute(string file, double limit = 300000.0) {
   cout << "Brute" << endl;
   Solution sol;

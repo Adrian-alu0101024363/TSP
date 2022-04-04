@@ -2,12 +2,26 @@
 
 using namespace std;
 
+/**
+ * @brief Construct a new Tsp:: Tsp object
+ * read from the file convert to a tsp 
+ * @param file file to be readed
+ * @param method the method for traverse tsp
+ * @param limit the time limit in ms
+ */
 Tsp::Tsp(string file, Traverse* method, double limit) {
   read(file);
   method_ = method;
   limit_ = limit;
 }
 
+/**
+ * @brief read a tsp from file with the format
+ * numbernodes
+ * from to cost
+ * ...
+ * @param file the file to be read
+ */
 void Tsp::read(string file) {
   ifstream f;
   f.open(file);
@@ -46,6 +60,12 @@ void Tsp::read(string file) {
   f.close();
 }
 
+/**
+ * @brief true if all nodes of tsp are visited
+ * false if not all
+ * @return true 
+ * @return false 
+ */
 bool Tsp::allVisited() {
   for (int i = 0; i < nodes_.size(); i++) {
     if (!nodes_[i].getVisited()) return false;
@@ -53,12 +73,24 @@ bool Tsp::allVisited() {
   return true;
 }
 
+/**
+ * @brief set all nodes to the given state
+ * 
+ * @param state 
+ */
 void Tsp::setAll(bool state) {
   for (int i = 0; i < nodes_.size(); i++) {
     nodes_[i].setVisited(state);
   }
 }
 
+/**
+ * @brief ostream the tsp specification/description
+ * 
+ * @param os 
+ * @param tsp 
+ * @return ostream& 
+ */
 ostream& operator<<(ostream& os, Tsp tsp) {
   os << "Total nodes: " << tsp.getTotal() << endl;
   auto nodes = tsp.getNodes();
