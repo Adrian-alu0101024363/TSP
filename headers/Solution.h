@@ -7,6 +7,7 @@ class Solution {
   vector<Node> sol_;
   int cost_;
   double timeCost_;
+  int nodes_;
   public:
   Solution(){}
   Solution(vector<Node> sol, int cost = 0) {sol_ = sol; cost_ = cost;}
@@ -17,5 +18,7 @@ class Solution {
   int getCost() {return cost_;}
   void setTimeCost(double time) {timeCost_ = time;}
   double getTimeCost() {return timeCost_;}
+  int getTotal() {return nodes_;}
+  void setTotal(int total) {nodes_ = total;}
   //method to calculate cost wip
 };
